@@ -10,41 +10,9 @@ app.use(express.static(__dirname+'/public'));
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-app.all('/dishes',(req,res,next)=>{
-    res.statusCode = 200;
-    res.setHeader('Content-Type','text/html');
-    next();
-});
-app.get('/dishes',(req,res,next)=>{
-    res.end('Send data to you');
-});
-app.post('/dishes',(req,res,next)=>{
-    res.end('Add new data: ' + req.body.name + 
-    'with details: '+ req.body.description);
-});
-app.put('/dishes',(req,res,next)=>{
-    res.statusCode = 403;
-    res.end('PUT operation not supported');
-});
-app.delete('/dishes',(req,res,next)=>{
-    res.end('Delete all data');
-});
 
-app.get('/dishes/:dishId',(req,res,next)=>{
-    res.end('Send data details to you: '+ req.params.dishId);
-});
-app.post('/dishes/:dishId',(req,res,next)=>{
-    res.statusCode = 403;
-    res.end('POST operation not supported on /dishes/'+ req.params.dishId);
-});
-app.put('/dishes/:dishId',(req,res,next)=>{
-    res.write('Updating the dish: '+res.params.dishId+'/n');
-    res.end('Update dish: '+req.body.name + 
-    'with detail: '+ req.body.description);
-});
-app.delete('/dishes/:dishId',(req,res,next)=>{
-    res.end('Delete dish: '+req.params.dishId);
-});
+const dishRouter = require('./routers/dishRouter');
+app.use('/dishes',dishRouter);
 
 app.use((req,res,next)=>{
     console.log(req.headers);
