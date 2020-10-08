@@ -21,7 +21,6 @@ var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 
 var passport = require('passport');
-var authenticate = require('./authenticate');
 
 
 connect.then((db) => {
